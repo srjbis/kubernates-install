@@ -1,0 +1,5 @@
+Kindly use this scripts in redhat distributed linux machines.
+While installing kubernates make sure that your servers has more than 2 core
+Don't forget to copy the join token from master which will be available after kubeadm init command.
+I have configured the hostname of each server like master and worker-node1 like this.
+I would like to thank the https://www.linuxtechi.com/install-kubernetes-1-7-centos7-rhel7/ for helping.
