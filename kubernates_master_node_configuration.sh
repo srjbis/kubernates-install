@@ -66,6 +66,11 @@ yum install kubeadm -y
 systemctl restart docker && systemctl enable docker
 systemctl  restart kubelet && systemctl enable kubelet
 
+echo "############ STARTING THE KUBEADM PROCESSES ##########"
+echo " KINDLY NOTE THE KUBEADM JOIN TAKEN AS IT IS REQUIRED TO USE IN WORKER NODES"
+kubeadm init
+sleep 16
+
 echo "########### CREATING THE Kubernetes CONFIGURATION DIRECTORIES ##########"
 
 mkdir -p $HOME/.kube
@@ -74,6 +79,7 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 echo "############ STARTING THE KUBEADM PROCESSES ##########"
 echo " KINDLY NOTE THE KUBEADM JOIN TAKEN AS IT IS REQUIRED TO USE IN WORKER NODES"
+kubeadm init
 sleep 16
 
 export kubever=$(kubectl version | base64 | tr -d '\n')
