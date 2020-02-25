@@ -1,7 +1,6 @@
 sudo -s <<EOF
 echo "######### CHANGING THE HOST NAME ###################"
-hostnamectl set-hostname 'worker-node'
-exec bash
+hostnamectl set-hostname 'slave'
 
 echo "########## DISABLE THE SELINUX #####################"
 setenforce 0
