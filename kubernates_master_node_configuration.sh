@@ -1,6 +1,6 @@
+sudo -s <<EOF
 echo "######### CHANGING THE HOST NAME ###################"
-hostnamectl set-hostname 'k8s-master'
-exec bash
+hostnamectl set-hostname 'master'
 
 echo "########## DISABLE THE SELINUX #####################"
 setenforce 0
@@ -24,9 +24,7 @@ modprobe br_netfilter
 echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
 echo "###### NEED TO CONFIGURE THE /etc/hosts FILE AND PUT ENTRY FOR WORKER AND MASTER NODE #######"
-#echo "172.31.7.4 k8s-master" >> /etc/hosts
-#echo "172.31.12.224 worker-node1" >> /etc/hosts
-#echo "172.31.5.160 worker-node2" >> /etc/hosts
+echo "`hostname -i | awk -F ' ' '{ print $2 }'` master" >> /etc/hosts
 
 echo "########### Kubernetes REPO FOR DOWNLOADING NEEDFUL RPMS #################"
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -79,8 +77,9 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 
 echo "############ STARTING THE KUBEADM PROCESSES ##########"
 echo " KINDLY NOTE THE KUBEADM JOIN TAKEN AS IT IS REQUIRED TO USE IN WORKER NODES"
-kubeadm init
+kubeadm init >> /tmp/kubeadm.log
 sleep 16
 
 export kubever=$(kubectl version | base64 | tr -d '\n')
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
+EOF
