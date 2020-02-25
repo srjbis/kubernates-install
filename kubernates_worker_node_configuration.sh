@@ -1,3 +1,4 @@
+sudo -s <<EOF
 echo "######### CHANGING THE HOST NAME ###################"
 hostnamectl set-hostname 'worker-node'
 exec bash
@@ -67,4 +68,4 @@ systemctl restart docker && systemctl enable docker
 systemctl  restart kubelet && systemctl enable kubelet
 
 echo "########### Kindly enter the kubeadm join command which is available in the master node ##########"
-
+EOF
