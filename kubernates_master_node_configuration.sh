@@ -76,7 +76,7 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 echo "############ STARTING THE KUBEADM PROCESSES ##########"
-echo " KINDLY NOTE THE KUBEADM JOIN TAKEN AS IT IS REQUIRED TO USE IN WORKER NODES"
+echo " KINDLY NOTE THE KUBEADM JOIN TAKEN IN /tmp/kubeadm.log AS IT IS REQUIRED TO USE IN WORKER NODES"
 kubeadm init >> /tmp/kubeadm.log
 sleep 16
 
