@@ -56,7 +56,8 @@ echo "#################### ENABLING THE DOCKER-CE-NIGHTLY ################"
 yum-config-manager --enable docker-ce-nightly
 
 echo "########### INSTALLING DOCKER ########################"
-yum install -y docker-ce docker-ce-cli
+yum install -y docker-ce \
+  docker-ce-cli
 
 echo "############# STARTING THE DOCKER AND KUBELET SERVICEs ############"
 
