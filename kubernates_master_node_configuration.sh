@@ -66,6 +66,7 @@ sudo -s <<EOF
 	echo "############ STARTING THE KUBEADM PROCESSES ##########"
 	echo " KINDLY NOTE THE KUBEADM JOIN TAKEN IN /tmp/kubeadm.log AS IT IS REQUIRED TO USE IN WORKER NODES"
 	kubeadm init >> /tmp/kubeadm.log 2> /dev/null
+	sleep 12
 
 	echo "########### CREATING THE Kubernetes CONFIGURATION DIRECTORIES ##########"
 	mkdir -p $HOME/.kube
