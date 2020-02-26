@@ -24,9 +24,11 @@ modprobe br_netfilter
 echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
 echo "###### NEED TO CONFIGURE THE /etc/hosts FILE AND PUT ENTRY FOR WORKER AND MASTER NODE #######"
-#echo "172.31.7.4 k8s-master" >> /etc/hosts
-#echo "172.31.12.224 worker-node1" >> /etc/hosts
-#echo "172.31.5.160 worker-node2" >> /etc/hosts
+echo "`hostname -i | awk -F ' ' '{ print $2 }'` slave" >> /etc/hosts
+
+echo "################## INSTALLING containerd.io-1.2.6 ######"
+yum -y install \
+    https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
 
 echo "########### Kubernetes REPO FOR DOWNLOADING NEEDFUL RPMS #################"
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -52,10 +54,6 @@ yum-config-manager \
 
 echo "#################### ENABLING THE DOCKER-CE-NIGHTLY ################"
 yum-config-manager --enable docker-ce-nightly
-
-echo "################## INSTALLING containerd.io-1.2.6 ######"
-yum -y install \
-    https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
 
 echo "########### INSTALLING DOCKER ########################"
 yum install -y docker-ce docker-ce-cli
