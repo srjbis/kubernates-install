@@ -65,14 +65,12 @@ sudo -s <<EOF
 
 	echo "############ STARTING THE KUBEADM PROCESSES ##########"
 	echo " KINDLY NOTE THE KUBEADM JOIN TAKEN IN /tmp/kubeadm.log AS IT IS REQUIRED TO USE IN WORKER NODES"
-	kubeadm init >> /tmp/kubeadm.log
+	kubeadm init >> /tmp/kubeadm.log 2> /dev/null
 
 	echo "########### CREATING THE Kubernetes CONFIGURATION DIRECTORIES ##########"
 	mkdir -p $HOME/.kube
-	cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+	cp -ir /etc/kubernetes/admin.conf $HOME/.kube/config
 	chown $(id -u):$(id -g) $HOME/.kube/config
-
-	sleep 16
 
 	export kubever=$(kubectl version | base64 | tr -d '\n')
 	kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$kubever"
