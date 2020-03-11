@@ -6,21 +6,21 @@ sudo -s <<EOF
 	setenforce 0
 	sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
-	echo "######## INSTALLING THE FIREWALL ###################"
-	yum install firewalld -y
-	systemctl start firewalld
-	systemctl enable firewalld
-	systemctl status firewalld
+	#echo "######## INSTALLING THE FIREWALL ###################"
+	#yum install firewalld -y
+	#systemctl start firewalld
+	#systemctl enable firewalld
+	#systemctl status firewalld
 
-	echo "########## ENABLING THE PORT FOR Kubernetes PROCESSES ############"
-	firewall-cmd --permanent --add-port=6443/tcp
-	firewall-cmd --permanent --add-port=2379-2380/tcp
-	firewall-cmd --permanent --add-port=10250/tcp
-	firewall-cmd --permanent --add-port=10251/tcp
-	firewall-cmd --permanent --add-port=10252/tcp
-	firewall-cmd --permanent --add-port=10255/tcp
-	firewall-cmd --reload
-	modprobe br_netfilter
+	#echo "########## ENABLING THE PORT FOR Kubernetes PROCESSES ############"
+	#firewall-cmd --permanent --add-port=6443/tcp
+	#firewall-cmd --permanent --add-port=2379-2380/tcp
+	#firewall-cmd --permanent --add-port=10250/tcp
+	#firewall-cmd --permanent --add-port=10251/tcp
+	#firewall-cmd --permanent --add-port=10252/tcp
+	#firewall-cmd --permanent --add-port=10255/tcp
+	#firewall-cmd --reload
+	#modprobe br_netfilter
 	echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
 	echo "###### NEED TO CONFIGURE THE /etc/hosts FILE AND PUT ENTRY FOR WORKER AND MASTER NODE #######"
